@@ -23,9 +23,4 @@ public class Order {
     private Integer quantity;
 
     private Double price;
-
-    @PostConstruct
-    public void init() {
-        id = UUID.randomUUID().toString();
-    }
 }

@@ -24,8 +24,8 @@ public class KafkaConfiguration {
     public NewTopic topic() {
         return TopicBuilder
                 .name(KafkaConstants.TOPIC_NAME)
-                .partitions(3)
-                .replicas(1)
+                .partitions(KafkaConstants.PARTITION_COUNT)
+                .replicas(KafkaConstants.REPLICA_COUNT)
                 .build();
     }
 
