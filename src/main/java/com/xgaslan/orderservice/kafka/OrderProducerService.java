@@ -1,6 +1,8 @@
 package com.xgaslan.orderservice.kafka;
 
+import com.xgaslan.orderservice.dto.Order;
 import com.xgaslan.orderservice.dto.OrderEvent;
+import com.xgaslan.orderservice.dto.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -17,7 +19,15 @@ public class OrderProducerService {
 
     private final NewTopic orderTopic;
 
-    private final KafkaTemplate<String, OrderEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+
+    public OrderEvent prepareEvent(Order order){
+        return OrderEvent.builder()
+                .message("Order status is " + OrderStatus.PENDING + " state")
+                .status(OrderStatus.PENDING)
+                .order(order)
+                .build();
+    }
 
     public void sendMessage(OrderEvent event){
         log.info("Order Event: {} sent to topic {}", event.toString(), orderTopic.name());
